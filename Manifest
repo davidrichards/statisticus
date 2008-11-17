@@ -1,0 +1,10 @@
+app_generators/stats/stats_app_generator.rb
+app_generators/stats/USAGE
+bin/stats
+CHANGELOG
+lib/statisticus.rb
+lib/version.rb
+LICENSE
+Manifest
+Rakefile
+README.rdoc
