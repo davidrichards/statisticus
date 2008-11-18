@@ -1,0 +1,7 @@
+The code isn't in here yet.  I was working on an issue with my app generator, and got frustrated, so decided to streamline my gem publication stuff.  So this is up, and I'm going to see if I can get the other code merged in here after work tonight.
+
+In the meantime, there's life.teguhub.com to watch.
+
+Cheers,
+
+David

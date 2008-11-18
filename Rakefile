@@ -5,7 +5,7 @@ require 'lib/version'
 
 Echoe.new('statisticus', Statisticus::VERSION) do |p|
   p.description              = "Generate a unique token with Active Record." 
-  p.url                      = "http://github.com/drichards/statisticus" 
+  p.url                      = "http://github.com/davidrichards/statisticus" 
   p.author                   = "David Richards" 
   p.email                    = "drichards@showcase60.com" 
   p.ignore_pattern           = ["tmp/*", "script/*"]
