@@ -2,7 +2,7 @@ require 'rbconfig'
 
 class StatsAppGenerator < RubiGen::Base
   DEFAULT_SHEBANG = File.join(Config::CONFIG['bindir'],
-                              Config::CONFIG['stats_install_name'])
+                              Config::CONFIG['ruby_install_name'])
 
   default_options   :shebang => DEFAULT_SHEBANG
   
