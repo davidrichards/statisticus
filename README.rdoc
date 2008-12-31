@@ -4,7 +4,7 @@
 
 == DESCRIPTION:
 
-This is an attempt to make R code more easily executable in a Ruby world.  Right now, it is a wrapper around RSRuby, which is a binding for R.  I consider this pre-alpha, but I want to keep this in a safe place, github, and work on it as I have a spare moment here and there.
+This is an attempt to make R code more easily executable in a Ruby world.  Right now, it is a wrapper around RSRuby, which is a binding for R.  I consider this pre-alpha, but I want to keep this in a safe place, github, and work on it as I have a spare moment here and there.  You should take a look at the TODO.txt file to see what I think I need to do before I consider this alpha code.
 
 == FEATURES/PROBLEMS:
 
