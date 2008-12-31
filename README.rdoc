@@ -1,7 +1,25 @@
-The code isn't in here yet.  I was working on an issue with my app generator, and got frustrated, so decided to streamline my gem publication stuff.  So this is up, and I'm going to see if I can get the other code merged in here after work tonight.
+= Statisticus
 
-In the meantime, there's life.teguhub.com to watch.
+* git clone git://github.com/davidrichards/statisticus.git  
 
-Cheers,
+== DESCRIPTION:
 
-David
+This is an attempt to make R code more easily executable in a Ruby world.  Right now, it is a wrapper around RSRuby, which is a binding for R.  I consider this pre-alpha, but I want to keep this in a safe place, github, and work on it as I have a spare moment here and there.
+
+== FEATURES/PROBLEMS:
+
+* Utilities to wrap R functions in Ruby classes without too much duplicated effort
+* A few statistical methods are wrapped
+
+== SYNOPSIS:
+
+  This will be worked out as the details of this gem are worked out.
+  
+== REQUIREMENTS:
+
+* R
+* RSRuby
+
+== INSTALL:
+* gem sources -a http://gems.github.com (you only have to do this once)
+* sudo gem install davidrichards-statisticus

@@ -35,8 +35,8 @@ class StatsAppGenerator < RubiGen::Base
       # Default module for app
       # m.template "lib/module.rb",         "lib/#{app_name}.rb"
       
-      # Test helper
-      # m.template_copy_each %w(test_helper.rb.erb),    "test"
+      # Spec Stuff
+      m.file_copy_each %w(spec_helper.rb.erb spec.opts rcov.opts),    "spec"
 
       # %w(debug).each { |file|
       #   m.file "configs/empty_log", "log/#{file}.log", :chmod => 0666
@@ -66,7 +66,7 @@ class StatsAppGenerator < RubiGen::Base
     lib/r
     log
     script
-    test
+    spec
     tmp
   )
 end
