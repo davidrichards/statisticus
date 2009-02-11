@@ -4,12 +4,15 @@
 
 == DESCRIPTION:
 
+This project is starting to mature a little.  I still have a lot of testing, but I've moved some of my more useful commands into the regular Ruby environment.  The idea is that things like [1,2,3].sample, and [1,2,3].std now work.  Some of the basic R commands I have implemented in Ruby.
+
 This is an attempt to make R code more easily executable in a Ruby world.  Right now, it is a wrapper around RSRuby, which is a binding for R.  I consider this pre-alpha, but I want to keep this in a safe place, github, and work on it as I have a spare moment here and there.  You should take a look at the TODO.txt file to see what I think I need to do before I consider this alpha code.
 
 == FEATURES/PROBLEMS:
 
 * Utilities to wrap R functions in Ruby classes without too much duplicated effort
 * A few statistical methods are wrapped
+* sirb Statistics + IRB now loads all sorts of numerical tools
 
 == SYNOPSIS:
 
