@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby -wKU
+require File.join(File.dirname(__FILE__), %w(.. lib version))
+
+statisticus_file = File.join(File.dirname(__FILE__), %w(.. lib statisticus))
+console_file = File.join(File.dirname(__FILE__), %w(.. lib console))
+
+irb = RUBY_PLATFORM =~ /(:?mswin|mingw)/ ? 'irb.bat' : 'irb'
+
+require 'optparse'
+options = { :sandbox => false, :irb => irb }
+OptionParser.new do |opt|
+  opt.banner = "Usage: console [environment] [options]"
+  opt.on("--irb=[#{irb}]", 'Invoke a different irb.') { |v| options[:irb] = v }
+  opt.parse!(ARGV)
+end
+
+# libs =  " -r irb/completion -r #{statisticus_file} -r #{console_file}"
+# Because I need to debug the core statisticus still.
+libs =  " -r irb/completion -r #{console_file}"
+
+if options[:sandbox]
+  puts "I'll have to think about how the whole sandbox concept should work for the statisticus"
+else
+  puts "Loading sirb (Statistics + Irb: #{Statisticus::VERSION})"
+end
+exec "#{options[:irb]} #{libs} --simple-prompt"
