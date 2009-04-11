@@ -1,28 +1,19 @@
-module Statisticus #:nodoc:
-  STATISTICUS_ROOT = File.expand_path(File.dirname(__FILE__))
-  # Set up a default logger for convenience.
-  # require 'simple_logger'
-  # Base.logger = SimpleLogger.new(STDOUT)
-  
-end
-
-$:.unshift(File.expand_path(File.dirname(__FILE__)))
 require 'rubygems'
 require 'activesupport'
 require 'rsruby'
+require 'log4r'
 
 require 'overrides'
-require 'statisticus/utilities'
-Dir.glob("#{File.dirname(__FILE__)}/statisticus/*.rb").each { |file| require file }
-
-
-
 
 # Make a hash of r_libs.
 
 # Get a DataFrame concept put together
 # Bridge from Hash to DataFrame
 module Statisticus
+
+  # Use log4r for my logging.
+  Log = Log4r::Logger.new("document auto topic")
+  Log.add Log4r::Outputter.stderr
 
   module ClassMethods
     def signature(*args)
@@ -52,7 +43,7 @@ module Statisticus
     
     if self.file_name
       unless File.exist?(self.file_name)
-        logger.warn "Had a filename set, but that file doesn't exist."
+        Log.warn "Had a filename set, but that file doesn't exist."
         return ''
       end
       @r_code ||= File.read(self.file_name)
@@ -72,8 +63,16 @@ module Statisticus
 
   protected
     attr_writer :path
+    
+    # Right now, grabs any R code from the current directory, in the 
+    # ~/.statisticus directory, or in the gem itself. 
     def path
-      @path ||= %w(. ~/.statisticus).map {|path| File.expand_path(path)}.delete_if {|path| not File.exist?(path)}
+      @path ||= [".", "~/.statisticus", gem_r_lib].map {|path| File.expand_path(path)}.delete_if {|path| not File.exist?(path)}
+    end
+    
+    # The directory in the gem itself that might contain some R code.
+    def gem_r_lib
+      File.expand_path(File.join(File.dirname(__FILE__), %w(.. r_lib)))
     end
   
     # Returns an array suitable for Dir.glob
@@ -103,4 +102,11 @@ module Statisticus
     
 end
 
-  
+Dir.glob("#{File.dirname(__FILE__)}/statisticus/*.rb").each { |file| require file }
+
+
+class A
+  include Statisticus
+end
+
+@a = A.new
