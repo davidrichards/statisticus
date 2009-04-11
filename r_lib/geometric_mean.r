@@ -1,0 +1,1 @@
+geometric <- function (x) exp(mean(log(x)))
