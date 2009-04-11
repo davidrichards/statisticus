@@ -1,8 +1,0 @@
-Description:
-    The 'stats' command creates a new Statisticus application with a default
-    directory structure and configuration at the path you specify.
-
-Example:
-    stats ~/Code/Ruby/myapp
-
-    This generates a skeletal Statisticus application installation in ~/Code/Ruby/myapp.

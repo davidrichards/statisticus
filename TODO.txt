@@ -1,7 +1,0 @@
-* Make sure the app generator works.
-* Put together the work flow for a basic job.
-* Write up some more examples in the sample directory, at blog.teguhub.com, and in the README.
-* Integrate my FFI examples for slimmer access to the R functions.
-* Publish the gemspec for github, so people can easily use this as a gem.
-* Finish the Dataframe idea (a meta class above an NArray or RNum Matrix).
-* Test, test, test.
