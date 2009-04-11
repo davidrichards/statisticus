@@ -12,8 +12,15 @@ require 'overrides'
 module Statisticus
 
   # Use log4r for my logging.
-  Log = Log4r::Logger.new("document auto topic")
+  Log = Log4r::Logger.new("statisticus")
   Log.add Log4r::Outputter.stderr
+
+  # Safely require TeguGears
+  begin
+    require 'tegu_gears'
+  rescue Exception => e
+    Log.info "Could not load TeguGears"
+  end
 
   module ClassMethods
     def signature(*args)
@@ -52,8 +59,10 @@ module Statisticus
     @r_code ||= find_r_code_from_base_name
   end
   
-  alias :r :r_code
-  alias :r= :r_code=
+  # The actual R runtime
+  def r
+    @r ||= RSRuby.instance
+  end
   
   # This way the class can be passed directly to the R Runtime.
   alias :as_r :r_code
