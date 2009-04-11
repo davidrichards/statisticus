@@ -24,10 +24,18 @@ Dir.glob("#{File.dirname(__FILE__)}/statisticus/*.rb").each { |file| require fil
 # Bridge from Hash to DataFrame
 module Statisticus
 
+  module ClassMethods
+    def signature(*args)
+      # Use OpenStruct/Struct to get this constructed safely.  Basically, setup the percept here.
+    end
+    alias :percept_signature :signature
+  end
+  
   def self.included(base)
     @@base = base
     # Involves distributed code, concurrent code, and of course composable code
     base.send(:include, TeguGears) if defined?(TeguGears)
+    base.send(:extend, ClassMethods)
   end
   
   # Makes base available.  We infer R libraries from the class name.
