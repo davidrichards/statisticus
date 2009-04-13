@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Richards"]
-  s.date = %q{2009-04-12}
+  s.date = %q{2009-04-13}
   s.description = %q{TODO}
   s.email = %q{davidlamontrichards@gmail.com}
   s.files = ["VERSION.yml", "lib/overrides", "lib/overrides/array.rb", "lib/overrides/hash.rb", "lib/overrides/rs_ruby.rb", "lib/overrides.rb", "lib/statisticus", "lib/statisticus.rb", "spec/lib", "spec/lib/overrides", "spec/lib/overrides/array_spec.rb", "spec/lib/overrides/hash_spec.rb", "spec/spec_helper.rb", "spec/statisticus_spec.rb"]
