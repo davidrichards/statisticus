@@ -3,7 +3,7 @@ require 'activesupport'
 require 'rsruby'
 require 'log4r'
 
-require 'overrides'
+require File.expand_path(File.join(File.dirname(__FILE__), 'overrides'))
 
 # Make a hash of r_libs.
 
@@ -31,9 +31,10 @@ module Statisticus
   
   def self.included(base)
     @@base = base
-    # Involves distributed code, concurrent code, and of course composable code
+    # Involves distributed code, concurrent code, memoization, and of course composable code
     base.send(:include, TeguGears) if defined?(TeguGears)
     base.send(:extend, ClassMethods)
+    base.init_r
   end
   
   # Makes base available.  We infer R libraries from the class name.
@@ -57,6 +58,9 @@ module Statisticus
     end
     
     @r_code ||= find_r_code_from_base_name
+    init_r(@r_code)
+    @r_code
+    
   end
   
   # The actual R runtime
@@ -69,8 +73,26 @@ module Statisticus
   
   # Can set a filename with R code in it
   attr_accessor :file_name
+  
+  # Override this if it should be done differently.  In most cases, it
+  # should be overwritten. 
+  def process(x)
+    r.send(self.class_as_function, {:x => x})
+  end
+
+  # Loads functions, variables, etc. in the R runtime.
+  def init_r(str=nil)
+    str ||= self.r_code
+    begin
+      r.eval_R(str)
+    rescue Exception => e
+      @error = e
+      return false
+    end
+  end
 
   protected
+    
     attr_writer :path
     
     # Right now, grabs any R code from the current directory, in the 
@@ -88,6 +110,11 @@ module Statisticus
     def path_as_r_glob
       path.map {|p| "#{p}/**/#{self.base_as_r}"}
     end
+    
+    def base_as_symbol
+      @base_as_symbol ||= self.base.to_s.underscore.to_sym
+    end
+    alias :class_as_function :base_as_symbol
   
     def base_as_r
       @base_as_r ||= self.base.to_s.underscore + ".r"
@@ -98,7 +125,7 @@ module Statisticus
     # This returns the contents of any such file, if found.
     def find_r_code_from_base_name
       found_lib = Dir.glob(path_as_r_glob)
-      found_lib ? File.read(found_lib) : nil
+      found_lib ? File.read(found_lib.first) : nil
     end
     private :find_r_code_from_base_name
     
@@ -107,15 +134,25 @@ module Statisticus
     end
     
     def r_from_statisticus
+      # Need to do this?  I may have finished this.  I need to get back to this to be sure.
     end
     
 end
 
 Dir.glob("#{File.dirname(__FILE__)}/statisticus/*.rb").each { |file| require file }
 
+# There should be a macro for these base cases.  If everything's default,
+# it can be as easy as: 
+# stats_class :geometric_mean
+class Object
+  def stats_class(name)
+    eval "class #{name.to_s.classify}; include Statisticus end"
+  end
+end
 
-class A
+# This is just a short-term example, until I tie it all together.
+class GeometricMean
   include Statisticus
 end
 
-@a = A.new
+@g = GeometricMean.new

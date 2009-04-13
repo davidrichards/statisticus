@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), "/../spec_helper")
+require File.join(File.dirname(__FILE__), "/../../spec_helper")
 
 describe Hash do
   it "should infuse_with defaults" do
