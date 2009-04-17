@@ -1,0 +1,66 @@
+== Statisticus
+
+Statisticus aims to do three things well:
+
+* Integrate other workflow tools to statistical analysis: memoization, composition, concurrency, and distributed computing
+* Remove seams from the R runtime and the R bindings (RSRuby)
+* Bridge simple Ruby-centric data containers (hashes, 2-dimensional arrays) into R-centric data containers (lists and data frames)
+
+==Usage
+
+The most basic usage can be:
+
+  stats_class :geometric_mean
+  
+This will:
+
+# create a class, GeometricMean
+# look for geometric_mean.r somewhere in this gem, in the working directory where the Ruby process is started, or in the ~/.statisticus directory
+# expect geometric_mean to be a defined function in geometric_mean.r
+
+If that holds true, then you've got the easiest access to the R runtime I can think of.
+
+Since I'm using TeguGears here, I have a few other tricks baked in:
+
+* The calls are memoized.  So, GeometricMean.call([1,2,3]) gets stored in a central repository which can be balanced, pruned, and managed if you'd like.
+* The calls can be composed, so things like (SquareRoot | GeometricMean ).call([1,2,3]) will work.
+* Other features are on their way, just not all tested, like concurrency and distributed processing.
+
+A more interesting example might be:
+
+  class Whatever
+    # Fill in the gaps here.
+  end
+
+
+
+
+Decide if I want to move my standard stats libs over here.  Possibly all of Sirb as well?
+
+Put all of these into Panorama
+
+Confirm run vs process (from TeguGears)
+
+If you have R code:
+
+If you want to pass the code along:
+
+Dealing with parameter lists
+
+Running this in parallel, memoization
+
+Using DataFrames
+
+==Installation
+
+sudo gem install davidrichards-statisticus
+
+=== Dependencies
+
+* R
+* RSRuby
+* Log4R
+
+==COPYRIGHT
+
+Copyright (c) 2009 David Richards. See LICENSE for details.
