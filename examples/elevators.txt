@@ -1,4 +1,4 @@
-Climb.rate	Sgz	P	Q	Cur.roll	Abs.roll	Diff.clb	Diff.roll.rate	Diff.diff.clb	Sa.time1	Sa.time2	Sa.time3	Sa.time4	Diff.sa.time1	Diff.sa.time2	Diff.sa.time3	Diff.sa.time4	Sa	Goal
+Climb.rate	Sgz	P	Q	Cur.roll	Abs.roll	Diff.clb	Diff.roll.rate	Diff.diff.clb	A	Sa.time2	Sa.time3	Sa.time4	Diff.sa.time1	Diff.sa.time2	Diff.sa.time3	Diff.sa.time4	Sa	Goal
 118	 -55	 -0.28	 -0.08	 -0.2	 -11	 11	 0.005	 -0.2	 -0.0010	 -0.0010	 -0.0010	 -0.0010	 0.0000	 0.0000	 0.0000	 0.0000	 -0.0010	 0.031
 390	 -45	 -0.06	 -0.07	 -0.6	 -12	 11	 0.010	 -0.2	 -0.0008	 -0.0008	 -0.0008	 -0.0008	 0.0000	 0.0000	 0.0000	 0.0000	 -0.0008	 0.034
 68	 6	 0.11	 0.15	 0.6	 -10	 -9	 -0.003	 -0.2	 -0.0011	 -0.0010	 -0.0010	 -0.0010	 -0.0002	 0.0000	 0.0000	 0.0000	 -0.0010	 0.033

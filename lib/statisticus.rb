@@ -150,4 +150,7 @@ end
 # This adds some of the more common features that may be useful.
 Dir.glob("#{File.dirname(__FILE__)}/featured_libs/*.rb").each { |file| require file }
 
+# Go ahead and load the examples for now
+Dir.glob("#{File.dirname(__FILE__)}/../examples/*.rb").each { |file| require file }
+
 R = RSRuby.instance
