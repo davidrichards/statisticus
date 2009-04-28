@@ -3,24 +3,19 @@ require 'activesupport'
 require 'rsruby'
 require 'log4r'
 
+begin
+  require 'tegu_gears'
+rescue Exception => e
+  false
+end
+
 require File.expand_path(File.join(File.dirname(__FILE__), 'overrides'))
 
-# Make a hash of r_libs.
-
-# Get a DataFrame concept put together
-# Bridge from Hash to DataFrame
 module Statisticus
 
   # Use log4r for my logging.
   Log = Log4r::Logger.new("statisticus")
   Log.add Log4r::Outputter.stderr
-
-  # Safely require TeguGears
-  begin
-    require 'tegu_gears'
-  rescue Exception => e
-    Log.info "Could not load TeguGears"
-  end
 
   module ClassMethods
     def signature(*args)
@@ -58,7 +53,7 @@ module Statisticus
     end
     
     @r_code ||= find_r_code_from_base_name
-    init_r(@r_code)
+    init_r(@r_code) if @r_code
     @r_code
     
   end
@@ -81,8 +76,10 @@ module Statisticus
   end
 
   # Loads functions, variables, etc. in the R runtime.
+  # Can't assume that there is R code.  The R code could be in the class
+  # itself.  So, I neatly return true unless there is a string to evaluate. 
   def init_r(str=nil)
-    str ||= self.r_code
+    return true unless str
     begin
       r.eval_R(str)
     rescue Exception => e
@@ -125,7 +122,7 @@ module Statisticus
     # This returns the contents of any such file, if found.
     def find_r_code_from_base_name
       found_lib = Dir.glob(path_as_r_glob)
-      found_lib ? File.read(found_lib.first) : nil
+      found_lib.empty? ? nil : File.read(found_lib.first)
     end
     private :find_r_code_from_base_name
     
@@ -150,9 +147,12 @@ class Object
   end
 end
 
-# This is just a short-term example, until I tie it all together.
-class GeometricMean
-  include Statisticus
-end
+# This adds some of the more common features that may be useful.
+Dir.glob("#{File.dirname(__FILE__)}/featured_libs/*.rb").each { |file| require file }
 
-@g = GeometricMean.new
+# # This is just a short-term example, until I tie it all together.
+# class GeometricMean
+#   include Statisticus
+# end
+# 
+# @g = GeometricMean.new
