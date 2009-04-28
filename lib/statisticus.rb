@@ -150,9 +150,4 @@ end
 # This adds some of the more common features that may be useful.
 Dir.glob("#{File.dirname(__FILE__)}/featured_libs/*.rb").each { |file| require file }
 
-# # This is just a short-term example, until I tie it all together.
-# class GeometricMean
-#   include Statisticus
-# end
-# 
-# @g = GeometricMean.new
+R = RSRuby.instance

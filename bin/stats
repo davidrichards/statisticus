@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby -wKU
+require 'yaml'
+
+version_hash = YAML.load_file(File.join(File.dirname(__FILE__), %w(.. VERSION.yml)))
+version = [version_hash[:major].to_s, version_hash[:minor].to_s, version_hash[:patch].to_s].join(".")
+statisticus_file = File.join(File.dirname(__FILE__), %w(.. lib statisticus))
+
+irb = RUBY_PLATFORM =~ /(:?mswin|mingw)/ ? 'irb.bat' : 'irb'
+
+require 'optparse'
+options = { :sandbox => false, :irb => irb }
+OptionParser.new do |opt|
+  opt.banner = "Usage: console [environment] [options]"
+  opt.on("--irb=[#{irb}]", 'Invoke a different irb.') { |v| options[:irb] = v }
+  opt.parse!(ARGV)
+end
+
+libs =  " -r irb/completion -r #{statisticus_file}"
+
+puts "Loading Statisticus + Irb: #{version}"
+
+if options[:sandbox]
+  puts "I'll have to think about how the whole sandbox concept should work for the statisticus"
+end
+
+exec "#{options[:irb]} #{libs} --simple-prompt"
