@@ -9,5 +9,6 @@ describe TeguGears do
       end
     end
     A.call(1..3).should eql([1,2,3])
+    
   end
 end
