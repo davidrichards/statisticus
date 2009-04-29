@@ -4,11 +4,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "statisticus"
-    s.summary = %Q{TODO}
+    s.summary = %Q{Statistics in Ruby through RSRuby, but more graceful.}
     s.email = "davidlamontrichards@gmail.com"
     s.homepage = "http://github.com/davidrichards/statisticus"
-    s.description = "TODO"
+    s.description = "Statisticus is a better bridge between RSRuby and Ruby.  It makes a lot of the work nearly seamless between the two worlds."
+    s.files =  FileList["[A-Z]*", "{bin,lib,spec,r_lib}/**/*"]
     s.authors = ["David Richards"]
+    s.add_dependency 'tegu_gears'
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
