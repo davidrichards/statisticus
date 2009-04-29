@@ -29,7 +29,7 @@ module Statisticus
     # Involves distributed code, concurrent code, memoization, and of course composable code
     base.send(:include, TeguGears) if defined?(TeguGears)
     base.send(:extend, ClassMethods)
-    base.init_r
+    base.init_r(base.r_code)
   end
   
   # Makes base available.  We infer R libraries from the class name.
@@ -71,8 +71,8 @@ module Statisticus
   
   # Override this if it should be done differently.  In most cases, it
   # should be overwritten. 
-  def process(x)
-    r.send(self.class_as_function, {:x => x})
+  def process(*x)
+    r.send(self.class_as_function).call(*x)
   end
 
   # Loads functions, variables, etc. in the R runtime.
@@ -129,11 +129,7 @@ module Statisticus
     def r_from_any_gem
       @r_from_any_gem ||= Gem.find_files("**/*.r")
     end
-    
-    def r_from_statisticus
-      # Need to do this?  I may have finished this.  I need to get back to this to be sure.
-    end
-    
+        
 end
 
 Dir.glob("#{File.dirname(__FILE__)}/statisticus/*.rb").each { |file| require file }
@@ -143,7 +139,8 @@ Dir.glob("#{File.dirname(__FILE__)}/statisticus/*.rb").each { |file| require fil
 # stats_class :geometric_mean
 class Object
   def stats_class(name)
-    eval "class #{name.to_s.classify}; include Statisticus end"
+    eval "class #{name.to_s.classify}; end"
+    name.to_s.classify.constantize.send(:include, Statisticus)
   end
 end
 
