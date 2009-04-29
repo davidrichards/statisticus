@@ -154,3 +154,15 @@ Dir.glob("#{File.dirname(__FILE__)}/featured_libs/*.rb").each { |file| require f
 Dir.glob("#{File.dirname(__FILE__)}/../examples/*.rb").each { |file| require file }
 
 R = RSRuby.instance
+
+class Calc
+  include Statisticus
+  
+  def process(txt)
+    R.eval_R txt
+  end
+end
+
+def calc(txt)
+  Calc.call(txt)
+end
